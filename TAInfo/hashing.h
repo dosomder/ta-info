@@ -1,0 +1,1 @@
+unsigned int CalcAdler32(unsigned char* buffer, unsigned int len);
