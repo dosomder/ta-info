@@ -9,12 +9,12 @@ static struct TAPartitionHdr* headers[2][16] = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 unsigned int getTAPartitionSize(struct TAPartitionHdr* hdr)
 {
-	char blocks = hdr->numblocks;
+	unsigned char blocks = hdr->numblocks;
 	unsigned int size;
-	if(blocks == (char)0xFF)
+	if(blocks == (unsigned char)0xFF)
 		return TA_PARTITION_MAX_SIZE;
 
-	size = (int)(blocks + 1) * TA_PARTITION_BLOCK_SIZE;
+	size = (unsigned int)(blocks + 1) * TA_PARTITION_BLOCK_SIZE;
 	return (size >= TA_PARTITION_MAX_SIZE) ? TA_PARTITION_MAX_SIZE : size;
 }
 
@@ -97,7 +97,7 @@ struct TAUnitHdr* getNextTAUnit(struct TAUnitHdr* hdr)
 	}
 
 	//aligned to 4 bytes
-	unitLen = hdr->length;// + hdr->length % 4;
+	unitLen = hdr->length;
 	if(unitLen % 4)
 		unitLen = unitLen - (unitLen % 4) + 4;
 	return (struct TAUnitHdr*)((unsigned char*)hdr + sizeof(struct TAUnitHdr) + unitLen);
@@ -148,7 +148,7 @@ int ParseTAImage(unsigned char* ptr, unsigned int len)
 		if(curhdr->unknown != curhdr->partitionnumber)
 		{
 			fprintf(stderr, "Unexpected partitionNumber: %d / %d\n", curhdr->unknown, curhdr->partitionnumber);
-			return 1;
+			continue;
 		}
 
 		headers[curhdr->partitionnumber - 1][curhdr->partnumber] = curhdr;

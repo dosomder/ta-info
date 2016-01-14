@@ -25,7 +25,7 @@ void arginit()
 	args.inputFile = NULL;
 	args.TAUnit = 0;
 	args.partition = -1;
-	args.outputMode = 1;
+	args.outputMode = OUTPUT_BYTE;
 }
 
 int argparse(int argc, char* argv[])
@@ -61,11 +61,10 @@ int argparse(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
-	int ret = 1;
 	int tafd = -1;
 	void* fptr = NULL;
 	if(argparse(argc, argv) == 0)
-		return ret;
+		return 1;
 
 	tafd = open(args.inputFile, O_RDONLY | O_BINARY);
 	if(tafd < 0)
@@ -86,5 +85,5 @@ int main(int argc, char* argv[])
 	releaseMappedMemory(fptr, _filelength(tafd));
 End:
 	close(tafd);
-	return ret;
+	return 0;
 }

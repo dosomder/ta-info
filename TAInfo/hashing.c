@@ -22,7 +22,7 @@ unsigned int CalcAdler32(unsigned char* buffer, unsigned int len)
 		} while(--k);
 
 		s1 %= BASE;
-        s2 %= BASE;
+		s2 %= BASE;
 	}
 
 	return (s2 << 16) | s1;
