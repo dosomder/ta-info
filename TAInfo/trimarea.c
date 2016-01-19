@@ -29,10 +29,10 @@ int getPartitionFromUnit(struct TAUnitHdr* hdr)
 	{
 		for(part = 0;part < 16;part++)
 		{
-			if(headers[partition][part] == NULL)
+			if(headers[partition - 1][part] == NULL)
 				break;
-			if((unsigned int)hdr - ((unsigned int)headers[partition][part]) < TA_PARTITION_MAX_SIZE)
-				return partition + 1;
+			if((unsigned int)hdr - ((unsigned int)headers[partition - 1][part]) < TA_PARTITION_MAX_SIZE)
+				return partition;
 		}
 	}
 
