@@ -18,6 +18,21 @@
 #define TA_UNIT_2_S1_LDR 0x7D3 //hw conf
 #define TA_UNIT_2_SENS_DATA 0x7DA //simlock / bootloader unlock allowed, etc.
 #define TA_UNIT_2_DRM_KEY_STATUS 0x7E5
+#define TA_UNIT_2_BLOB_0 0x7E6 //marlin
+#define TA_UNIT_2_BLOB_1 0x7E7 //ckb
+#define TA_UNIT_2_BLOB_2 0x7E8 //widevine
+#define TA_UNIT_2_BLOB_3 0x7E9
+#define TA_UNIT_2_BLOB_4 0x7EA
+#define TA_UNIT_2_BLOB_5 0x7EB
+#define TA_UNIT_2_BLOB_6 0x7EC
+#define TA_UNIT_2_BLOB_7 0x7ED
+#define TA_UNIT_2_BLOB_8 0x7EE
+#define TA_UNIT_2_BLOB_9 0x7EF
+#define TA_UNIT_2_BLOB_A 0x7F0
+#define TA_UNIT_2_BLOB_B 0x7F1
+#define TA_UNIT_2_BLOB_C 0x7F2
+#define TA_UNIT_2_BLOB_D 0x7F3
+#define TA_UNIT_2_BLOB_E 0x7F4
 #define TA_UNIT_2_LAST_BOOT_LOG 0x802
 #define TA_UNIT_2_MACHINE_ID 0x85D
 #define TA_UNIT_2_SW_VER 0x89A
@@ -40,7 +55,7 @@
 #define TA_UNIT_2_PBA_ID_REV 0x1326
 #define TA_UNIT_2_PP_SEMC_ITP_PRODUCT_NO 0x132C
 #define TA_UNIT_2_PP_SEMC_ITP_REV 0x132D
-#define TA_UNIT_2_DRM_KEYS 0x1046B
+#define TA_UNIT_2_DRM_KEYS 0x1046B //"DK"
 
 struct TAUnitHdr
 {
