@@ -44,5 +44,8 @@
     <ClInclude Include="trimareainfo.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="win.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

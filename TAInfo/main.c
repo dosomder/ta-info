@@ -77,12 +77,12 @@ int main(int argc, char* argv[])
 		goto End;
 
 	if(args.TAUnit == 0)
-		TAPrintCommonInfo((unsigned char*)fptr, _filelength(tafd));
+		TAPrintCommonInfo((unsigned char*)fptr, getFileSize(tafd));
 	else
-		TAReadUnit((unsigned char*)fptr, _filelength(tafd), args.TAUnit, args.partition, args.outputMode);
+		TAReadUnit((unsigned char*)fptr, getFileSize(tafd), args.TAUnit, args.partition, args.outputMode);
 
 
-	releaseMappedMemory(fptr, _filelength(tafd));
+	releaseMappedMemory(fptr, getFileSize(tafd));
 End:
 	close(tafd);
 	return 0;

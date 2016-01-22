@@ -89,6 +89,7 @@
     <ClInclude Include="trimarea.h" />
     <ClInclude Include="trimareainfo.h" />
     <ClInclude Include="utility.h" />
+    <ClInclude Include="win.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
