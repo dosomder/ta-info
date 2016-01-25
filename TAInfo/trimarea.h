@@ -1,3 +1,6 @@
+#ifndef TA_TRIMAREA_H
+#define TA_TRIMAREA_H
+
 #define TA_MAGIC 0x3BF8E9C1 
 #define TA_FILE_BLOCK_SIZE 128 //128kb
 #define TA_PARTITION_MAX_SIZE 0x20000 //same as TA_FILE_BLOCK_SIZE
@@ -89,3 +92,5 @@ int getTAPartitionPartCount(int partitionType);
 struct TAPartitionHdr* getTAPartitionHeader(int partitionType, int partcount);
 struct TAUnitHdr* findTAUnit(unsigned int unitNum, int partition);
 int ParseTAImage(unsigned char* ptr, unsigned int len);
+
+#endif /* TA_TRIMAREA_H */
