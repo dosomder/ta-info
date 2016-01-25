@@ -7,7 +7,32 @@
 //TA img is 2MB / TA_PARTITION_MAX_SIZE = 16
 static struct TAPartitionHdr* headers[2][16] = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 
-unsigned int getTAPartitionSize(struct TAPartitionHdr* hdr)
+static struct TAUnitHdr* getNextTAUnit(struct TAUnitHdr* hdr)
+{
+	int unitLen;
+	if(hdr == NULL)
+		return NULL;
+	//rare case if hdr is actually a TAPartitionHdr
+	if(hdr->unitNumber == TA_MAGIC)
+		return (struct TAUnitHdr*)((unsigned char*)hdr + sizeof(struct TAPartitionHdr));
+
+	//reached end
+	if(hdr->magic == 0xFFFFFFFF)
+		return NULL;
+	if(hdr->magic != TA_MAGIC)
+	{
+		//fprintf(stderr, "Unknown magic %d in TAUnit %d\n", hdr->magic, hdr->unitNumber);
+		return NULL;
+	}
+
+	//aligned to 4 bytes
+	unitLen = hdr->length;
+	if(unitLen % 4)
+		unitLen = unitLen - (unitLen % 4) + 4;
+	return (struct TAUnitHdr*)((unsigned char*)hdr + sizeof(struct TAUnitHdr) + unitLen);
+}
+
+unsigned int getTAPartitionPartSize(struct TAPartitionHdr* hdr)
 {
 	unsigned char blocks = hdr->numblocks;
 	unsigned int size;
@@ -41,8 +66,23 @@ int getPartitionFromUnit(struct TAUnitHdr* hdr)
 
 unsigned int calcTAPartitionHash(struct TAPartitionHdr* hdr)
 {
-	unsigned int psize = getTAPartitionSize(hdr) - sizeof(hdr->magic) - sizeof(hdr->hash);
+	unsigned int psize = getTAPartitionPartSize(hdr) - sizeof(hdr->magic) - sizeof(hdr->hash);
 	return CalcAdler32(((unsigned char*)&hdr->hash + sizeof(hdr->hash)), psize);
+}
+
+int getTAUnitCount(struct TAPartitionHdr* hdr)
+{
+	int ucount = 0;
+	struct TAUnitHdr* uhdr = (struct TAUnitHdr*)hdr;
+
+	if(hdr == NULL)
+		return -1;
+	//is this enough or should we loop over the whole partition part?
+	//do we also need to check the 'unknown' field in the hdr?
+	while(uhdr = getNextTAUnit(uhdr))
+		ucount++;
+
+	return ucount;
 }
 
 int getTAPartitionPartCount(int partitionType)
@@ -76,31 +116,6 @@ struct TAPartitionHdr* getTAPartitionHeader(int partitionType, int partcount)
 		fprintf(stderr, "Unknown partition type: %d\n", partitionType);
 		return NULL;
 	}
-}
-
-struct TAUnitHdr* getNextTAUnit(struct TAUnitHdr* hdr)
-{
-	int unitLen;
-	if(hdr == NULL)
-		return NULL;
-	//rare case if hdr is actually a TAPartitionHdr
-	if(hdr->unitNumber == TA_MAGIC)
-		return (struct TAUnitHdr*)((unsigned char*)hdr + sizeof(struct TAPartitionHdr));
-
-	//reached end
-	if(hdr->magic == 0xFFFFFFFF)
-		return NULL;
-	if(hdr->magic != TA_MAGIC)
-	{
-		//fprintf(stderr, "Unknown magic %d in TAUnit %d\n", hdr->magic, hdr->unitNumber);
-		return NULL;
-	}
-
-	//aligned to 4 bytes
-	unitLen = hdr->length;
-	if(unitLen % 4)
-		unitLen = unitLen - (unitLen % 4) + 4;
-	return (struct TAUnitHdr*)((unsigned char*)hdr + sizeof(struct TAUnitHdr) + unitLen);
 }
 
 struct TAUnitHdr* findTAUnit(unsigned int unitNum, int partition)

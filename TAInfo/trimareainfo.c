@@ -70,7 +70,8 @@ void TAPrintCommonInfo(unsigned char* ptr, unsigned int len)
 			if(phdr == NULL)
 				continue;
 			printf("Part [%d]\n", part);
-			printf("Size:			%d\n", getTAPartitionSize(phdr));
+			printf("Size:			%d\n", getTAPartitionPartSize(phdr));
+			printf("Units:			%d\n", getTAUnitCount(phdr));
 			printf("Saved checksum:		%#010X\n", phdr->hash);
 			printf("Calculated checksum:	%#010X\n", calcTAPartitionHash(phdr));
 			printf("\n");

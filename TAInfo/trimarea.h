@@ -80,9 +80,10 @@ struct TAPartitionHdr
 	unsigned char numblocks;
 };
 
-unsigned int getTAPartitionSize(struct TAPartitionHdr* hdr);
+unsigned int getTAPartitionPartSize(struct TAPartitionHdr* hdr);
 int getPartitionFromUnit(struct TAUnitHdr* hdr);
 unsigned int calcTAPartitionHash(struct TAPartitionHdr* hdr);
+int getTAUnitCount(struct TAPartitionHdr* hdr);
 int getTAPartitionPartCount(int partitionType);
 struct TAPartitionHdr* getTAPartitionHeader(int partitionType, int partcount);
 struct TAUnitHdr* findTAUnit(unsigned int unitNum, int partition);
