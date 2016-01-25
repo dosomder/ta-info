@@ -13,7 +13,7 @@
 #include <sys/mman.h>
 #endif
 
-int getFileSize(int fd)
+off_t getFileSize(int fd)
 {
 	off_t old = lseek(fd, 0, SEEK_CUR);
 	off_t size = lseek(fd, 0, SEEK_END);
@@ -32,7 +32,7 @@ void releaseMappedMemory(void* ptr, unsigned int len)
 
 void* readFileToMemory(int fd)
 {
-	long filesize = getFileSize(fd);
+	off_t filesize = getFileSize(fd);
 #ifdef WIN32
 	void* fptr = VirtualAlloc(NULL, filesize, MEM_COMMIT, PAGE_READWRITE);
 #elif __linux__
