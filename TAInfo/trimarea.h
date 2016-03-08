@@ -45,14 +45,17 @@
 #define TA_UNIT_2_S1_BOOT_VER 0x89F
 #define TA_UNIT_2_BUILD_TYPE 0x8A1
 #define TA_UNIT_2_PHONE_NAME 0x8A2
-#define TA_UNIT_2_AC_VER 0x8A4
+#define TA_UNIT_2_AC_VER 0x8A4 //cust-reset.ta zeroes this
 #define TA_UNIT_2_BL_UNLOCKCODE 0x8B2
 #define TA_UNIT_2_STARTUP_SHUTDOWNRESULT 0x8B3
 #define TA_UNIT_2_STARTUP_REASON 0x8FD //"override unit"
-#define TA_UNIT_2_MODEM_CUST_CFG 0x964 //FOTA_INTERNAL ?? cfg located in system/etc/customization/modem/
-#define TA_UNIT_2_BASEBAND_CFG 0x9F7 //cfg located in the modem
+#define TA_UNIT_2_DISABLE_CHARGE_ONLY 0x907
+#define TA_UNIT_2_OSV_RESTRICTION 0x91A
+#define TA_UNIT_2_MODEM_CUST_CFG 0x964 //FOTA_INTERNAL ?? cfg located in system/etc/customization/modem/ -> fota-reset.ta zeroes this
 #define TA_UNIT_2_FLASH_LOG 0x9AB
+#define TA_UNIT_2_ENABLE_NONSECURE_USB_DEBUG 0x9B6
 #define TA_UNIT_2_CREDMGR_KEYTABLE_PRESET 0x9C4
+#define TA_UNIT_2_BASEBAND_CFG 0x9F7 //cfg located in the modem
 #define TA_UNIT_2_WIFI_MAC 0xA00
 #define TA_UNIT_2_BLUETOOTH_MAC 0xA08
 #define TA_UNIT_2_SERIAL_NO 0x1324
